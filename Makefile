@@ -1,7 +1,10 @@
 SHELL := /bin/bash
 
-build:
-	docker build --no-cache -t jeylabs/poppler:latest .
+compiler: compiler.Dockerfile
+	docker build -f ${PWD}/compiler.Dockerfile -t jeylabs/poppler/compiler:latest .
+
+build: compiler
+	docker build --no-cache -f ${PWD}/builder.Dockerfile -t jeylabs/poppler:latest .
 
 distribution: build
 	docker run --rm \

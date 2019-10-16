@@ -1,4 +1,4 @@
-FROM amazonlinux:latest as builder
+FROM amazonlinux:latest
 
 SHELL ["/bin/bash", "-c"]
 
@@ -48,6 +48,9 @@ RUN set -xe; \
         --without-python
 
 RUN set -xe; \
+    make
+
+RUN set -xe; \
     make install
 
 RUN set -xe; \
@@ -80,6 +83,9 @@ RUN set -xe; \
     --disable-static
 
 RUN set -xe; \
+    make
+
+RUN set -xe; \
     make install
 
 # Install Fontconfig (https://github.com/freedesktop/fontconfig/releases)
@@ -105,6 +111,9 @@ RUN set -xe; \
     --enable-libxml2
 
 RUN set -xe; \
+    make
+
+RUN set -xe; \
     make install
 
 # Install Libjpeg-Turbo (https://github.com/libjpeg-turbo/libjpeg-turbo/releases)
@@ -125,6 +134,9 @@ RUN set -xe; \
         -DENABLE_STATIC=FALSE \
         -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
         -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib
+
+RUN set -xe; \
+    make
 
 RUN set -xe; \
     make install
@@ -148,6 +160,9 @@ RUN set -xe; \
         -DBUILD_STATIC_LIBS=OFF
 
 RUN set -xe; \
+    make
+
+RUN set -xe; \
     make install
 
 # Install Libpng (https://github.com/glennrp/libpng/releases)
@@ -168,6 +183,9 @@ RUN set -xe; \
     --disable-static
 
 RUN set -xe; \
+    make
+
+RUN set -xe; \
     make install
 
 # Install Poppler (https://gitlab.freedesktop.org/poppler/poppler/-/tags)
@@ -184,8 +202,6 @@ WORKDIR  ${POPPLER_BUILD_DIR}/bin/
 
 RUN set -xe; \
     CMAKE_PREFIX_PATH="${INSTALL_DIR}" \
-    FREETYPE_LIBS="-L${INSTALL_DIR}/lib -lfreetype" \
-    FREETYPE_CFLAGS="-I${INSTALL_DIR}/include/freetype2" \
     cmake3 .. \
         -DCMAKE_BUILD_TYPE=Release \
         -DTESTDATADIR=$PWD/testfiles \
@@ -193,40 +209,7 @@ RUN set -xe; \
         -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
 RUN set -xe; \
-    cmake3  --build . --target install
-
-# Test some files
+    make
 
 RUN set -xe; \
-    mkdir -p /tmp/test
-
-WORKDIR /tmp/test
-
-ENV PATH="/opt/bin:${PATH}" \
-    LD_LIBRARY_PATH="${INSTALL_DIR}/lib64:${INSTALL_DIR}/lib"
-
-RUN set -xe; \
-    curl -Ls https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf --output sample.pdf
-
-RUN set -xe; \
-    ${INSTALL_DIR}/bin/pdftoppm -png sample.pdf sample
-
-RUN set -xe; \
-    test -f /tmp/test/sample-1.png
-
-# Copy Everything To The Base Container
-
-FROM amazonlinux:latest
-
-ENV INSTALL_DIR="/opt/jeylabs"
-
-ENV PATH="/opt/bin:${PATH}" \
-    LD_LIBRARY_PATH="${INSTALL_DIR}/lib64:${INSTALL_DIR}/lib"
-
-RUN mkdir -p /opt
-
-WORKDIR /opt
-
-COPY --from=builder /opt /opt
-
-RUN LD_LIBRARY_PATH= yum -y install zip
+    make install

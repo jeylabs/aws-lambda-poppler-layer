@@ -8,4 +8,4 @@ cd /opt
 
 ls -la
 
-zip -q -r /export/${ZIP_FILE_NAME}.zip . -x *include* *share*
+zip --quiet --recurse-paths /export/${ZIP_FILE_NAME}.zip . --exclude "*include*" "*share*"
