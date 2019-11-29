@@ -1,4 +1,4 @@
-## Build poppler for Amazon Lambda as a layer
+## Build Poppler for Amazon Lambda as a layer
 Poppler binaries for AWS Lambda
 
 ## Install
@@ -6,6 +6,7 @@ Download and run `make distribution`
 
 ## Getting Started
 You can add this layer to any Lambda function you want – no matter what runtime
+
 Click on Layers and choose "Add a layer", and "Provide a layer version ARN" and enter the following ARN.
 
 ```
