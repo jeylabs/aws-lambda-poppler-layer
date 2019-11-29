@@ -17,10 +17,10 @@ ENV LD_LIBRARY_PATH="${INSTALL_DIR}/lib64:${INSTALL_DIR}/lib"
 
 RUN set -xe \
     yum makecache \
-    && yum groupinstall -y "Development Tools" --setopt=group_package_types=mandatory,default
+    && LD_LIBRARY_PATH= yum groupinstall -y "Development Tools" --setopt=group_package_types=mandatory,default
 
 RUN set -xe; \
-    yum install -y cmake3 gperf libuuid-devel nasm
+    LD_LIBRARY_PATH= yum install -y cmake3 gperf libuuid-devel nasm
 
 # Build LibXML2 (https://github.com/GNOME/libxml2/releases)
 
@@ -190,7 +190,7 @@ RUN set -xe; \
 
 # Install Poppler (https://gitlab.freedesktop.org/poppler/poppler/-/tags)
 
-ENV VERSION_POPPLER=0.81.0
+ENV VERSION_POPPLER=0.83.0
 ENV POPPLER_BUILD_DIR=${BUILD_DIR}/poppler
 
 RUN set -xe; \
@@ -201,13 +201,11 @@ RUN set -xe; \
 WORKDIR  ${POPPLER_BUILD_DIR}/bin/
 
 RUN set -xe; \
-    CMAKE_PREFIX_PATH="${INSTALL_DIR}" \
     cmake3 .. \
         -DCMAKE_BUILD_TYPE=Release \
         -DTESTDATADIR=$PWD/testfiles \
         -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
-        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
-        -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib
+        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
 RUN set -xe; \
     make
