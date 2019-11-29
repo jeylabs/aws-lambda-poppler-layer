@@ -206,7 +206,8 @@ RUN set -xe; \
         -DCMAKE_BUILD_TYPE=Release \
         -DTESTDATADIR=$PWD/testfiles \
         -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
-        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
+        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
+        -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib
 
 RUN set -xe; \
     make
