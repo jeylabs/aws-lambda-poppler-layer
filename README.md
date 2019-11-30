@@ -15,13 +15,5 @@ arn:aws:lambda:ap-southeast-2:544607081959:layer:poppler:9
 
 See the table below for other supported regions.
 
-## Note
-
-```
-/var/lang/lib/libstdc++.so.6: version `CXXABI_1.3.9' not found
-```
-
-- Old version of GCC runtime users have to modify shared library search path by modifing `LD_LIBRARY_PATH` envirement variable without `/var/lang/lib` or `LD_LIBRARY_PATH=/opt/lib` is also fine.
-
 ## See
 - `Node.js` environment - [aws-lambda-poppler](https://github.com/jeylabs/aws-lambda-poppler)
