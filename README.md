@@ -24,4 +24,4 @@ See the table below for other supported regions.
 - Old version of GCC runtime users have to modify shared library search path by modifing `LD_LIBRARY_PATH` envirement variable without `/var/lang/lib` or `LD_LIBRARY_PATH=/opt/lib` is also fine.
 
 ## See
-- `Node.js` - [aws-lambda-poppler](https://github.com/jeylabs/aws-lambda-poppler)
+- `Node.js` environment - [aws-lambda-poppler](https://github.com/jeylabs/aws-lambda-poppler)
