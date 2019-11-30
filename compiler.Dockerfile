@@ -129,6 +129,9 @@ RUN set -xe; \
 WORKDIR  ${LIBJPEG_BUILD_DIR}/bin/
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     cmake3 .. \
         -DCMAKE_BUILD_TYPE=RELEASE \
         -DENABLE_STATIC=FALSE \
@@ -154,6 +157,9 @@ RUN set -xe; \
 WORKDIR  ${OPENJPEG2_BUILD_DIR}/bin/
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     cmake3 .. \
         -DCMAKE_BUILD_TYPE=RELEASE \
         -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
@@ -201,6 +207,9 @@ RUN set -xe; \
 WORKDIR  ${POPPLER_BUILD_DIR}/bin/
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     cmake3 .. \
         -DCMAKE_BUILD_TYPE=Release \
         -DTESTDATADIR=$PWD/testfiles \

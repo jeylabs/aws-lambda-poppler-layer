@@ -14,18 +14,15 @@ RUN set -xe; \
 # Copy All Binaries / Libaries
 
 RUN set -xe; \
-    mkdir -p ${INSTALL_DIR}/etc
-
-RUN set -xe; \
-    mkdir -p ${INSTALL_DIR}/bin
-
-RUN set -xe; \
-    mkdir -p ${INSTALL_DIR}/lib
+    mkdir -p ${INSTALL_DIR}/etc \
+    ${INSTALL_DIR}/bin \
+    ${INSTALL_DIR}/lib
 
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/etc/* ${INSTALL_DIR}/etc/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/* ${INSTALL_DIR}/bin/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/* ${INSTALL_DIR}/lib/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/* ${INSTALL_DIR}/lib/
+COPY --from=jeylabs/poppler/compiler:latest /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib/
 
 # Test file
 
