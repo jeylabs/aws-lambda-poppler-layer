@@ -36,16 +36,16 @@ WORKDIR  ${XML2_BUILD_DIR}/
 
 RUN set -xe; \
     ./configure \
-        --prefix=${INSTALL_DIR} \
-        --with-sysroot=${INSTALL_DIR} \
-        --enable-shared \
-        --disable-static \
-        --with-html \
-        --with-history \
-        --enable-ipv6=no \
-        --with-icu \
-        --with-zlib=${INSTALL_DIR} \
-        --without-python
+    --prefix=${INSTALL_DIR} \
+    --with-sysroot=${INSTALL_DIR} \
+    --enable-shared \
+    --disable-static \
+    --with-html \
+    --with-history \
+    --enable-ipv6=no \
+    --with-icu \
+    --with-zlib=${INSTALL_DIR} \
+    --without-python
 
 RUN set -xe; \
     make
@@ -73,7 +73,7 @@ RUN set -xe; \
 
 RUN set -xe; \
     sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
-        -i include/freetype/config/ftoption.h
+    -i include/freetype/config/ftoption.h
 
 RUN set -xe; \
     ./configure  \
@@ -133,10 +133,10 @@ RUN set -xe; \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     cmake3 .. \
-        -DCMAKE_BUILD_TYPE=RELEASE \
-        -DENABLE_STATIC=FALSE \
-        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
-        -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib
+    -DCMAKE_BUILD_TYPE=RELEASE \
+    -DENABLE_STATIC=FALSE \
+    -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
+    -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib
 
 RUN set -xe; \
     make
@@ -161,9 +161,9 @@ RUN set -xe; \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     cmake3 .. \
-        -DCMAKE_BUILD_TYPE=RELEASE \
-        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
-        -DBUILD_STATIC_LIBS=OFF
+    -DCMAKE_BUILD_TYPE=RELEASE \
+    -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
+    -DBUILD_STATIC_LIBS=OFF
 
 RUN set -xe; \
     make
@@ -194,10 +194,65 @@ RUN set -xe; \
 RUN set -xe; \
     make install
 
+# Install Pixman (https://www.cairographics.org/releases)
+
+ENV VERSION_PIXMAN=0.38.4
+ENV PIXMAN_BUILD_DIR=${BUILD_DIR}/pixman
+
+RUN set -xe; \
+    mkdir -p ${PIXMAN_BUILD_DIR}; \
+    curl -Ls https://www.cairographics.org/releases/pixman-${VERSION_PIXMAN}.tar.gz \
+    | tar xzC ${PIXMAN_BUILD_DIR} --strip-components=1
+
+WORKDIR  ${PIXMAN_BUILD_DIR}/
+
+RUN set -xe; \
+    ls -al ${PIXMAN_BUILD_DIR}
+
+RUN set -xe; \
+    ./configure  \
+    --prefix=${INSTALL_DIR} \
+    --disable-static
+
+RUN set -xe; \
+    make
+
+RUN set -xe; \
+    make install
+
+# Install Cairo (http://www.linuxfromscratch.org/blfs/view/svn/x/cairo.html)
+
+ENV VERSION_CAIRO=1.17.2
+ENV CAIRO_BUILD_DIR=${BUILD_DIR}/cairo
+
+RUN set -xe; \
+    mkdir -p ${CAIRO_BUILD_DIR}; \
+    curl -Ls https://cairographics.org/snapshots/cairo-${VERSION_CAIRO}.tar.xz \
+    | tar xJvC ${CAIRO_BUILD_DIR} --strip-components=1
+
+WORKDIR  ${CAIRO_BUILD_DIR}/
+
+RUN set -xe; \
+    ./configure  \
+    --prefix=${INSTALL_DIR} \
+    --disable-static \ 
+    --enable-tee
+
+RUN set -xe; \
+    make
+
+RUN set -xe; \
+    make install
+
 # Install Poppler (https://gitlab.freedesktop.org/poppler/poppler/-/tags)
 
 ENV VERSION_POPPLER=0.83.0
 ENV POPPLER_BUILD_DIR=${BUILD_DIR}/poppler
+ENV POPPLER_TEST_DIR=${BUILD_DIR}/poppler-test
+
+RUN set -xe; \
+    mkdir -p ${POPPLER_TEST_DIR}; \
+    git clone git://git.freedesktop.org/git/poppler/test ${POPPLER_TEST_DIR}
 
 RUN set -xe; \
     mkdir -p ${POPPLER_BUILD_DIR}/bin; \
@@ -211,10 +266,10 @@ RUN set -xe; \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     cmake3 .. \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DTESTDATADIR=$PWD/testfiles \
-        -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
-        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
+    -DCMAKE_BUILD_TYPE=Release \
+    -DTESTDATADIR=${POPPLER_TEST_DIR} \
+    -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+    -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
 RUN set -xe; \
     make
