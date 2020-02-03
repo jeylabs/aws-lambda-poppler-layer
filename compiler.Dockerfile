@@ -1,9 +1,46 @@
-FROM amazonlinux:latest
+FROM amazonlinux:2018.03
 
 SHELL ["/bin/bash", "-c"]
 
 ENV BUILD_DIR="/tmp/build"
 ENV INSTALL_DIR="/opt/jeylabs"
+
+# Lock To Proper Release
+
+RUN sed -i 's/releasever=latest/releaserver=2018.03/' /etc/yum.conf
+
+# Create All The Necessary Build Directories
+
+RUN mkdir -p ${BUILD_DIR}  \
+    ${INSTALL_DIR}/bin \
+    ${INSTALL_DIR}/doc \
+    ${INSTALL_DIR}/etc/php \
+    ${INSTALL_DIR}/etc/php/conf.d \
+    ${INSTALL_DIR}/include \
+    ${INSTALL_DIR}/lib \
+    ${INSTALL_DIR}/lib64 \
+    ${INSTALL_DIR}/libexec \
+    ${INSTALL_DIR}/sbin \
+    ${INSTALL_DIR}/share
+
+# Install Development Tools
+
+WORKDIR /tmp
+
+RUN set -xe \
+    && yum makecache \
+    && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default
+
+# Install CMake
+
+RUN  set -xe \
+    && mkdir -p /tmp/cmake \
+    && cd /tmp/cmake \
+    && curl -Ls  https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.13.2.tar.gz \
+    | tar xzC /tmp/cmake --strip-components=1 \
+    && ./bootstrap --prefix=/usr/local \
+    && make \
+    && make install
 
 # Configure Default Compiler Variables
 
@@ -12,15 +49,6 @@ ENV PKG_CONFIG_PATH="${INSTALL_DIR}/lib64/pkgconfig:${INSTALL_DIR}/lib/pkgconfig
     PATH="${INSTALL_DIR}/bin:${PATH}"
 
 ENV LD_LIBRARY_PATH="${INSTALL_DIR}/lib64:${INSTALL_DIR}/lib"
-
-# Install Development Tools
-
-RUN set -xe \
-    yum makecache \
-    && LD_LIBRARY_PATH= yum groupinstall -y "Development Tools" --setopt=group_package_types=mandatory,default
-
-RUN set -xe; \
-    LD_LIBRARY_PATH= yum install -y cmake3 gperf libuuid-devel nasm
 
 # Build LibXML2 (https://github.com/GNOME/libxml2/releases)
 

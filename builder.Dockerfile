@@ -1,4 +1,4 @@
-FROM amazonlinux:latest
+FROM amazonlinux:2018.03
 
 ENV SOURCE_DIR="/opt/jeylabs"
 ENV INSTALL_DIR="/opt"
@@ -22,7 +22,6 @@ COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/etc/* ${INSTALL_DIR}/e
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/* ${INSTALL_DIR}/bin/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/* ${INSTALL_DIR}/lib/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/* ${INSTALL_DIR}/lib/
-COPY --from=jeylabs/poppler/compiler:latest /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib/
 
 # Test file
 
