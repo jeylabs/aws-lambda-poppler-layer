@@ -73,13 +73,9 @@ RUN set -xe; \
     --enable-ipv6=no \
     --with-icu \
     --with-zlib=${INSTALL_DIR} \
-    --without-python
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    --without-python \ 
+    && make \
+    && make install
 
 RUN set -xe; \
     cp xml2-config ${INSTALL_DIR}/bin/xml2-config
@@ -108,13 +104,9 @@ RUN set -xe; \
     --prefix=${INSTALL_DIR} \
     --with-sysroot=${INSTALL_DIR} \
     --enable-freetype-config  \
-    --disable-static
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    --disable-static \ 
+    && make \
+    && make install
 
 # Install Fontconfig (https://github.com/freedesktop/fontconfig/releases)
 
@@ -136,13 +128,9 @@ RUN set -xe; \
     --prefix=${INSTALL_DIR} \
     --with-sysroot=${INSTALL_DIR} \
     --disable-docs \
-    --enable-libxml2
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    --enable-libxml2 \ 
+    && make \
+    && make install
 
 # Install Libjpeg-Turbo (https://github.com/libjpeg-turbo/libjpeg-turbo/releases)
 
@@ -164,13 +152,9 @@ RUN set -xe; \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DENABLE_STATIC=FALSE \
     -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
-    -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib \ 
+    && make \
+    && make install
 
 # Install OpenJPEG (https://github.com/uclouvain/openjpeg/releases)
 
@@ -191,13 +175,9 @@ RUN set -xe; \
     cmake .. \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
-    -DBUILD_STATIC_LIBS=OFF
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    -DBUILD_STATIC_LIBS=OFF \ 
+    && make \
+    && make install
 
 # Install Libpng (https://github.com/glennrp/libpng/releases)
 
@@ -214,13 +194,9 @@ WORKDIR  ${OPENPNG_BUILD_DIR}/
 RUN set -xe; \
     ./configure  \
     --prefix=${INSTALL_DIR} \
-    --disable-static
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    --disable-static \ 
+    && make \
+    && make install
 
 # Install Pixman (https://www.cairographics.org/releases)
 
@@ -240,13 +216,9 @@ RUN set -xe; \
 RUN set -xe; \
     ./configure  \
     --prefix=${INSTALL_DIR} \
-    --disable-static
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    --disable-static \ 
+    && make \
+    && make install
 
 # Install Cairo (http://www.linuxfromscratch.org/blfs/view/svn/x/cairo.html)
 
@@ -264,13 +236,9 @@ RUN set -xe; \
     ./configure  \
     --prefix=${INSTALL_DIR} \
     --disable-static \ 
-    --enable-tee
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    --enable-tee \ 
+    && make \
+    && make install
 
 # Install Poppler (https://gitlab.freedesktop.org/poppler/poppler/-/tags)
 
@@ -297,10 +265,6 @@ RUN set -xe; \
     -DCMAKE_BUILD_TYPE=Release \
     -DTESTDATADIR=${POPPLER_TEST_DIR} \
     -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
-    -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
-
-RUN set -xe; \
-    make
-
-RUN set -xe; \
-    make install
+    -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \ 
+    && make \
+    && make install
