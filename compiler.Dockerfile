@@ -313,6 +313,7 @@ RUN set -xe; \
     -opensource \
     -nomake examples    \
     -no-rpath   \
+    -no-opengl \
     -skip qtwebengine   \
     && make \
     && make install
