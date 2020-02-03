@@ -4,7 +4,7 @@ compiler: compiler.Dockerfile
 	docker build -f ${PWD}/compiler.Dockerfile -t jeylabs/poppler/compiler:latest .
 
 build: compiler
-	docker build -f ${PWD}/builder.Dockerfile -t jeylabs/poppler:latest .
+	docker build --no-cache -f ${PWD}/builder.Dockerfile -t jeylabs/poppler:latest .
 
 distribution: build
 	docker run --rm \
