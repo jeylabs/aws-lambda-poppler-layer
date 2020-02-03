@@ -14,8 +14,6 @@ RUN sed -i 's/releasever=latest/releaserver=2018.03/' /etc/yum.conf
 RUN mkdir -p ${BUILD_DIR}  \
     ${INSTALL_DIR}/bin \
     ${INSTALL_DIR}/doc \
-    ${INSTALL_DIR}/etc/php \
-    ${INSTALL_DIR}/etc/php/conf.d \
     ${INSTALL_DIR}/include \
     ${INSTALL_DIR}/lib \
     ${INSTALL_DIR}/lib64 \
@@ -159,9 +157,7 @@ RUN set -xe; \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     --prefix=${INSTALL_DIR} \
-    --with-sysroot=${INSTALL_DIR} \
     --disable-docs \
-    --enable-libxml2 \ 
     && make \
     && make install
 
