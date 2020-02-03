@@ -308,7 +308,7 @@ RUN set -xe; \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
-    --prefix $QT5PREFIX \
+    -prefix $QT5PREFIX \
     && make \
     && make install
 
