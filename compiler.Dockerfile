@@ -309,6 +309,12 @@ RUN set -xe; \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     -prefix ${INSTALL_DIR}/qt5 \
+    -confirm-license    \
+    -opensource \
+    -dbus-linked    \
+    -nomake examples    \
+    -no-rpath   \
+    -skip qtwebengine   \
     && make \
     && make install
 
