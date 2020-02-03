@@ -37,10 +37,7 @@ RUN set -xe; \
     yumdownloader --source 	libuuid
 
 RUN set -xe; \ 
-    yum-builddep util-linux-2.23.2-59.29.amzn1.src.rpm -y
-
-RUN set -xe; \ 
-    rpm -iv util-linux-2.23.2-59.29.amzn1.src.rpm util-linux
+    rpm2cpio util-linux-2.23.2-59.29.amzn1.src.rpm | cpio -idmv
 
 RUN set -xe; \ 
     ls -al
