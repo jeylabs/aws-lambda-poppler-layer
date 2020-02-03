@@ -290,6 +290,28 @@ RUN set -xe; \
     && make \
     && make install
 
+# Install qt5 (https://wiki.qt.io/Qt_5.12_Release)
+
+ENV VERSION_QT=5.14.1
+ENV QT_BUILD_DIR=${BUILD_DIR}/qt5
+
+RUN set -xe; \
+    mkdir -p ${QT_BUILD_DIR}; \
+    curl -Ls https://download.qt.io/archive/qt/${VERSION_QT:(-2)}/${VERSION_QT}/single/qt-everywhere-src-${VERSION_QT}.tar.xz \
+    | tar xJvC ${QT_BUILD_DIR} --strip-components=1
+
+WORKDIR  ${QT_BUILD_DIR}/
+
+RUN set -xe; \
+    CFLAGS="" \
+    QT5PREFIX=${INSTALL_DIR}/qt5 \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
+    ./configure  \
+    --prefix $QT5PREFIX \
+    && make \
+    && make install
+
 # Install Poppler (https://gitlab.freedesktop.org/poppler/poppler/-/tags)
 
 ENV VERSION_POPPLER=0.83.0
@@ -318,3 +340,16 @@ RUN set -xe; \
     -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \ 
     && make \
     && make install
+
+# Symlink All Binaries / Libaries
+
+RUN mkdir -p /opt/bin
+RUN mkdir -p /opt/lib
+
+RUN cp /opt/vapor/bin/* /opt/bin
+RUN cp /opt/vapor/sbin/* /opt/bin
+
+RUN cp /opt/vapor/lib/* /opt/lib || true
+RUN cp /opt/vapor/lib64/* /opt/lib || true
+
+RUN ls /opt/bin
