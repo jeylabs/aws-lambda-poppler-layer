@@ -119,7 +119,7 @@ ENV VERSION_GPERF=3.1
 ENV GPERF_BUILD_DIR=${BUILD_DIR}/gperf
 
 RUN set -xe; \
-    mkdir -p ${FONTCONFIG_BUILD_DIR}; \
+    mkdir -p ${GPERF_BUILD_DIR}; \
     curl -Ls http://ftp.gnu.org/pub/gnu/gperf/gperf-${VERSION_GPERF}.tar.gz \
     | tar xzC ${GPERF_BUILD_DIR} --strip-components=1
 
