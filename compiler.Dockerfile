@@ -31,7 +31,7 @@ RUN set -xe \
     && yum install -y util-linux
 
 RUN set -xe \
-    mv /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib64/
+    cp /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib64/
 
 # Install CMake
 
