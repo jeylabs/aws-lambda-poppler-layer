@@ -29,8 +29,21 @@ WORKDIR /tmp
 
 RUN set -xe \
     && yum makecache \
-    && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default \ 
-    && yum install yum-utils -y
+    && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default
+
+# Install libuuid
+
+RUN set -xe; \ 
+    yumdownloader --source 	libuuid-2.33.2-alt1.x86_64.rpm
+
+RUN set -xe; \ 
+    yum-builddep libuuid-2.33.2-alt1.x86_64.rpm
+
+RUN set -xe; \ 
+    rpm -iv libuuid-2.33.2-alt1.x86_64.rpm
+
+RUN set -xe; \ 
+    ls -al
 
 # Install CMake
 
@@ -134,22 +147,6 @@ RUN set -xe; \
     --prefix=${INSTALL_DIR} \
     && make \
     && make install
-
-# Install libuuid
-
-WORKDIR /tmp
-
-RUN set -xe; \ 
-    yumdownloader --source 	libuuid-2.33.2-alt1.x86_64.rpm
-
-RUN set -xe; \ 
-    yum-builddep libuuid-2.33.2-alt1.x86_64.rpm
-
-RUN set -xe; \ 
-    rpm -iv libuuid-2.33.2-alt1.x86_64.rpm
-
-RUN set -xe; \ 
-    ls -al
 
 # Install Fontconfig (https://github.com/freedesktop/fontconfig/releases)
 
