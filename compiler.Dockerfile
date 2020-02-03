@@ -158,6 +158,7 @@ RUN set -xe; \
     ./configure  \
     --prefix=${INSTALL_DIR} \
     --disable-docs \
+    --enable-libxml2 \
     && make \
     && make install
 
