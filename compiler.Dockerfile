@@ -30,7 +30,7 @@ WORKDIR /tmp
 RUN set -xe \
     && yum makecache \
     && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default \ 
-    && yum insall yum-utils -y
+    && yum install yum-utils -y
 
 # Install CMake
 
