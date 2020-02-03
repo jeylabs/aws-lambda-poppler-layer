@@ -43,7 +43,7 @@ RUN set -xe; \
     rpm -iv util-linux-2.23.2-59.29.amzn1.src.rpm
 
 RUN set -xe; \ 
-    ls -al
+    ls ~/rpmbuild/
 
 # Install CMake
 
