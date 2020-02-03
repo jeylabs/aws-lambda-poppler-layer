@@ -40,6 +40,9 @@ RUN set -xe; \
     rpm2cpio util-linux-2.23.2-59.29.amzn1.src.rpm | cpio -idmv
 
 RUN set -xe; \ 
+    tar xJvC util-linux-2.23.2.tar.xz --strip-components=1
+
+RUN set -xe; \ 
     ls -al
 
 # Install CMake
