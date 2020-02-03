@@ -297,7 +297,7 @@ ENV QT_BUILD_DIR=${BUILD_DIR}/qt5
 
 RUN set -xe; \
     mkdir -p ${QT_BUILD_DIR}; \
-    curl -Ls https://download.qt.io/archive/qt/${VERSION_QT:(-2)}/${VERSION_QT}/single/qt-everywhere-src-${VERSION_QT}.tar.xz \
+    curl -Ls https://download.qt.io/archive/qt/5.14/${VERSION_QT}/single/qt-everywhere-src-${VERSION_QT}.tar.xz \
     | tar xJvC ${QT_BUILD_DIR} --strip-components=1
 
 WORKDIR  ${QT_BUILD_DIR}/
