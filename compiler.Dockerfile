@@ -36,11 +36,11 @@ RUN set -xe \
 RUN set -xe; \ 
     yumdownloader --source 	libuuid
 
-# RUN set -xe; \ 
-#     yum-builddep libuuid-2.33.2-alt1.x86_64.rpm
+RUN set -xe; \ 
+    yum-builddep util-linux-2.23.2-59.29.amzn1.src.rpm
 
-# RUN set -xe; \ 
-#     rpm -iv libuuid-2.33.2-alt1.x86_64.rpm
+RUN set -xe; \ 
+    rpm -iv util-linux-2.23.2-59.29.amzn1.src.rpm
 
 RUN set -xe; \ 
     ls -al
