@@ -63,6 +63,9 @@ RUN set -xe; \
 WORKDIR  ${XML2_BUILD_DIR}/
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure \
     --prefix=${INSTALL_DIR} \
     --with-sysroot=${INSTALL_DIR} \
@@ -73,12 +76,11 @@ RUN set -xe; \
     --enable-ipv6=no \
     --with-icu \
     --with-zlib=${INSTALL_DIR} \
-    --without-python \ 
-    && make \
-    && make install
+    --without-python
 
 RUN set -xe; \
-    cp xml2-config ${INSTALL_DIR}/bin/xml2-config
+    make install \
+    && cp xml2-config ${INSTALL_DIR}/bin/xml2-config
 
 # Install FreeType2 (https://github.com/aseprite/freetype2/releases)
 
@@ -100,6 +102,9 @@ RUN set -xe; \
     -i include/freetype/config/ftoption.h
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     --prefix=${INSTALL_DIR} \
     --with-sysroot=${INSTALL_DIR} \
@@ -124,6 +129,9 @@ RUN set -xe; \
     rm -f src/fcobjshash.h
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     --prefix=${INSTALL_DIR} \
     --with-sysroot=${INSTALL_DIR} \
@@ -192,6 +200,9 @@ RUN set -xe; \
 WORKDIR  ${OPENPNG_BUILD_DIR}/
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     --prefix=${INSTALL_DIR} \
     --disable-static \ 
@@ -214,6 +225,9 @@ RUN set -xe; \
     ls -al ${PIXMAN_BUILD_DIR}
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     --prefix=${INSTALL_DIR} \
     --disable-static \ 
@@ -233,6 +247,9 @@ RUN set -xe; \
 WORKDIR  ${CAIRO_BUILD_DIR}/
 
 RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     --prefix=${INSTALL_DIR} \
     --disable-static \ 
