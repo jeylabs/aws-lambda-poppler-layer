@@ -34,7 +34,7 @@ RUN set -xe \
 # Install libuuid
 
 RUN set -xe; \ 
-    yumdownloader --source 	libuuid-2.33.2-alt1.x86_64.rpm
+    yumdownloader --source 	libuuid
 
 RUN set -xe; \ 
     yum-builddep libuuid-2.33.2-alt1.x86_64.rpm
