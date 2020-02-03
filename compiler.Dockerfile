@@ -42,6 +42,10 @@ RUN set -xe; \
 RUN set -xe; \ 
     ls -al
 
+
+RUN set -xe; \ 
+    ./uuidd.init
+
 # Install CMake
 
 RUN  set -xe \
