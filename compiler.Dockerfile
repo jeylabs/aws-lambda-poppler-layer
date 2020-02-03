@@ -310,10 +310,10 @@ RUN set -xe; \
     ./configure  \
     -prefix ${INSTALL_DIR}/qt5 \
     -confirm-license    \
-    -platform linuxfb \
     -opensource \
     -nomake examples    \
     -no-rpath   \
+    -no-opengl \
     -skip qtwebengine   \
     && make \
     && make install
