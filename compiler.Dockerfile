@@ -44,6 +44,17 @@ RUN  set -xe \
     && make \
     && make install
 
+# Install NASM
+
+RUN  set -xe \
+    && mkdir -p /tmp/nasm \
+    && cd /tmp/nasm \
+    && curl -Ls  http://www.nasm.us/pub/nasm/releasebuilds/2.14.02/nasm-2.14.02.tar.xz \
+    | tar xJvC /tmp/nasm --strip-components=1 \
+    && ./configure --prefix=/usr/local \
+    && make \
+    && make install
+
 # Configure Default Compiler Variables
 
 ENV PKG_CONFIG_PATH="${INSTALL_DIR}/lib64/pkgconfig:${INSTALL_DIR}/lib/pkgconfig" \
@@ -181,6 +192,7 @@ RUN set -xe; \
     cmake .. \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DENABLE_STATIC=FALSE \
+    -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
     -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib \ 
     && make \
     && make install
