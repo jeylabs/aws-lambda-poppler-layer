@@ -40,10 +40,10 @@ RUN set -xe; \
     yum-builddep util-linux-2.23.2-59.29.amzn1.src.rpm -y
 
 RUN set -xe; \ 
-    rpm -iv util-linux-2.23.2-59.29.amzn1.src.rpm
+    rpm -iv util-linux-2.23.2-59.29.amzn1.src.rpm util-linux
 
 RUN set -xe; \ 
-    ls ~/rpmbuild/
+    ls -al
 
 # Install CMake
 
