@@ -31,20 +31,6 @@ RUN set -xe \
     && yum makecache \
     && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default
 
-# Install libuuid
-
-RUN set -xe; \ 
-    yumdownloader --source libuuid
-
-RUN set -xe; \ 
-    rpm2cpio util-linux-2.23.2-59.29.amzn1.src.rpm | cpio -idmv
-
-RUN set -xe; \ 
-    tar xJvC util-linux-2.23.2.tar.xz --strip-components=1
-
-RUN set -xe; \ 
-    ls -al
-
 # Install CMake
 
 RUN  set -xe \
