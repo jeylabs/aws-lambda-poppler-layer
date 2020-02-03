@@ -311,7 +311,6 @@ RUN set -xe; \
     -prefix ${INSTALL_DIR}/qt5 \
     -confirm-license    \
     -opensource \
-    -dbus-linked    \
     -nomake examples    \
     -no-rpath   \
     -skip qtwebengine   \
