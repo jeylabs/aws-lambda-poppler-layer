@@ -28,10 +28,10 @@ WORKDIR /tmp
 RUN set -xe \
     && yum makecache \
     && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default \
-    && yum install -y util-linux
+    && yum install -y libuuid-devel
 
 RUN set -xe \
-    cp /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib64/
+    mv /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib64/
 
 # Install CMake
 
