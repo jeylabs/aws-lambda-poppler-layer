@@ -113,6 +113,27 @@ RUN set -xe; \
     && make \
     && make install
 
+# Install gperf
+
+ENV VERSION_GPERF=3.1
+ENV GPERF_BUILD_DIR=${BUILD_DIR}/gperf
+
+RUN set -xe; \
+    mkdir -p ${FONTCONFIG_BUILD_DIR}; \
+    curl -Ls http://ftp.gnu.org/pub/gnu/gperf/gperf-${VERSION_GPERF}.tar.gz \
+    | tar xzC ${GPERF_BUILD_DIR} --strip-components=1
+
+WORKDIR  ${GPERF_BUILD_DIR}/
+
+RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
+    ./configure  \
+    --prefix=${INSTALL_DIR} \
+    && make \
+    && make install
+
 # Install Fontconfig (https://github.com/freedesktop/fontconfig/releases)
 
 ENV VERSION_FONTCONFIG=2.13.1
