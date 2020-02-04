@@ -21,19 +21,19 @@ RUN set -xe; \
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/etc/* ${INSTALL_DIR}/etc/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/* ${INSTALL_DIR}/bin/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/* ${INSTALL_DIR}/lib/
-COPY --from=jeylabs/poppler/compiler:latest /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/libuuid.so.1.3.0 ${INSTALL_DIR}/lib/libuuid.so.1
 
-# Test file
+    # Test file
     
 RUN set -xe; \
     mkdir -p /tmp/test
-
+    
 WORKDIR /tmp/test
     
-RUN set -xe; \
+    RUN set -xe; \
     curl -Ls https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf --output sample.pdf
     
-RUN set -xe; \
+    RUN set -xe; \
     /opt/bin/pdftoppm -png sample.pdf sample
     
 RUN set -xe; \
