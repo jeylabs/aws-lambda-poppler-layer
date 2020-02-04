@@ -250,7 +250,7 @@ ENV LIBTIFF_BUILD_DIR=${BUILD_DIR}/tiff
 RUN set -xe; \
     mkdir -p ${LIBTIFF_BUILD_DIR}; \
     curl -Ls http://download.osgeo.org/libtiff/tiff-${VERSION_LIBTIFF}.tar.gz \
-    | tar xJvC ${LIBTIFF_BUILD_DIR} --strip-components=1
+    | tar xzC ${LIBTIFF_BUILD_DIR} --strip-components=1
 
 WORKDIR  ${LIBTIFF_BUILD_DIR}/
 
