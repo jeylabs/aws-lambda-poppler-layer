@@ -368,10 +368,3 @@ RUN set -xe; \
 # Symlink Libaries
 
 RUN cp /lib64/libuuid.so.* ${INSTALL_DIR}/lib64/
-
-RUN ls -al /opt/jeylabs/share
-RUN ls -al /opt/jeylabs/share/fontconfig
-RUN ls -al /opt/jeylabs/share/fontconfig/conf.avail
-RUN ls -al /opt/jeylabs/share/fontconfig/conf.avail
-
-
