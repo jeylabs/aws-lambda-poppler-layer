@@ -373,10 +373,10 @@ RUN set -xe; \
 RUN mkdir -p /opt/bin
 RUN mkdir -p /opt/lib
 
-RUN cp /opt/vapor/bin/* /opt/bin
-RUN cp /opt/vapor/sbin/* /opt/bin
+RUN cp ${INSTALL_DIR}/bin/* /opt/bin
+RUN cp ${INSTALL_DIR}/sbin/* /opt/bin
 
-RUN cp /opt/vapor/lib/* /opt/lib || true
-RUN cp /opt/vapor/lib64/* /opt/lib || true
+RUN cp ${INSTALL_DIR}/lib/* /opt/lib || true
+RUN cp ${INSTALL_DIR}/lib64/* /opt/lib || true
 
 RUN ls /opt/bin
