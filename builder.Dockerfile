@@ -21,10 +21,8 @@ RUN set -xe; \
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/etc/* ${INSTALL_DIR}/etc/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/* ${INSTALL_DIR}/bin/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/* ${INSTALL_DIR}/lib/
-COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/libuuid.so.1.3.0 ${INSTALL_DIR}/lib64/
-
-RUN set -xe; \
-    ls -al ${INSTALL_DIR}/lib64/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/* ${INSTALL_DIR}/lib/
+COPY --from=jeylabs/poppler/compiler:latest /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib/
 
 # Test file
     

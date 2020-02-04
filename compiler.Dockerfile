@@ -30,9 +30,6 @@ RUN set -xe \
     && yum groupinstall -y "Development Tools"  --setopt=group_package_types=mandatory,default \
     && yum install -y libuuid-devel openssl-devel gcc72 gcc72-c++
 
-RUN set -xe \
-    mv /usr/lib64/libuuid.so.1.3.0 ${INSTALL_DIR}/lib64/
-
 # Install CMake
 
 RUN  set -xe \
