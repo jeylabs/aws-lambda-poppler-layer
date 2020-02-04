@@ -372,4 +372,14 @@ RUN set -xe; \
 
 RUN ls -al /usr/lib64/
 
-RUN ls -al ${INSTALL_DIR}
+RUN ls -al /usr/lib64/
+
+RUN ls -al /usr/lib64/
+
+RUN ls -al /usr/lib64/
+
+RUN ls -al /usr/lib64/
+
+RUN ls -al /usr/lib64/
+
+RUN ls -al /usr/lib64/
