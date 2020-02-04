@@ -242,6 +242,28 @@ RUN set -xe; \
     && make \
     && make install
 
+# Install LibTIFF (http://download.osgeo.org/libtiff)
+
+ENV VERSION_LIBTIFF=4.1.0
+ENV LIBTIFF_BUILD_DIR=${BUILD_DIR}/tiff
+
+RUN set -xe; \
+    mkdir -p ${LIBTIFF_BUILD_DIR}; \
+    curl -Ls http://download.osgeo.org/libtiff/tiff-${VERSION_LIBTIFF}.tar.gz \
+    | tar xJvC ${LIBTIFF_BUILD_DIR} --strip-components=1
+
+WORKDIR  ${LIBTIFF_BUILD_DIR}/
+
+RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
+    ./configure  \
+    --prefix=${INSTALL_DIR} \
+    --disable-static \ 
+    && make \
+    && make install
+
 # Install Pixman (https://www.cairographics.org/releases)
 
 ENV VERSION_PIXMAN=0.38.4
@@ -290,65 +312,9 @@ RUN set -xe; \
     && make \
     && make install
 
-
-# Install devtoolset
-
-WORKDIR  /tmp
-
-RUN set -xe; \
-    yum install -y iso-codes # Needed for scl-utils-build
-
-RUN set -xe; \
-    curl -O http://vault.centos.org/6.5/SCL/x86_64/scl-utils/scl-utils-20120927-11.el6.centos.alt.x86_64.rpm \
-    && curl -O http://vault.centos.org/6.5/SCL/x86_64/scl-utils/scl-utils-build-20120927-11.el6.centos.alt.x86_64.rpm \
-    && curl -O http://mirror.centos.org/centos/6/extras/x86_64/Packages/centos-release-scl-rh-2-3.el6.centos.noarch.rpm \
-    && curl -O http://mirror.centos.org/centos/6/extras/x86_64/Packages/centos-release-scl-7-3.el6.centos.noarch.rpm
-
-RUN set -xe; \
-    rpm -Uvh *.rpm # Had to run this twice? Get an error first time, maybe Docker related \
-    && rm *.rpm
-
-RUN set -xe; \
-    yum install -y devtoolset-7-gcc-c++ devtoolset-7-make devtoolset-7-build
-
-RUN set -xe; \
-    scl enable devtoolset-7 bash
-
-# Install qt5 (https://wiki.qt.io/Qt_5.12_Release)
-
-ENV VERSION_QT=5.14.1
-ENV QT_BUILD_DIR=${BUILD_DIR}/qt5
-
-RUN set -xe; \
-    mkdir -p ${QT_BUILD_DIR}; \
-    curl -Ls https://download.qt.io/archive/qt/5.14/${VERSION_QT}/single/qt-everywhere-src-${VERSION_QT}.tar.xz \
-    | tar xJvC ${QT_BUILD_DIR} --strip-components=1
-
-WORKDIR  ${QT_BUILD_DIR}/
-
-RUN set -xe; \
-    export CXXFLAGS="$CXXFLAGS -std=gnu++11"
-
-RUN set -xe; \
-    CFLAGS="" \
-    QT5PREFIX=${INSTALL_DIR}/qt5 \
-    CXXFLAGS="-std=gnu++11" \
-    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
-    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
-    ./configure  \
-    -prefix ${INSTALL_DIR}/qt5 \
-    -confirm-license    \
-    -opensource \
-    -nomake examples    \
-    -no-rpath   \
-    -no-opengl \
-    -skip qtwebengine   \
-    && make \
-    && make install
-
 # Install Poppler (https://gitlab.freedesktop.org/poppler/poppler/-/tags)
 
-ENV VERSION_POPPLER=0.83.0
+ENV VERSION_POPPLER=0.85.0
 ENV POPPLER_BUILD_DIR=${BUILD_DIR}/poppler
 ENV POPPLER_TEST_DIR=${BUILD_DIR}/poppler-test
 
