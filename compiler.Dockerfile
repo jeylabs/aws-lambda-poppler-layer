@@ -40,8 +40,13 @@ RUN  set -xe \
     && cd /tmp/cmake \
     && curl -Ls  https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3.tar.gz \
     | tar xzC /tmp/cmake --strip-components=1 \
-    && ./bootstrap --prefix=/usr/local \
-    && make -DCMAKE_USE_OPENSSL=OFF \
+    && sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake \
+    && ./bootstrap \
+    --prefix=/usr/local \ 
+    --system-libs \
+    --no-system-jsoncpp \
+    --no-system-librhash \
+    && make \
     && make install
 
 # Install NASM
