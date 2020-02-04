@@ -40,10 +40,8 @@ RUN  set -xe \
     && cd /tmp/cmake \
     && curl -Ls  https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3.tar.gz \
     | tar xzC /tmp/cmake --strip-components=1 \
-    && ./bootstrap \ 
-    --prefix=/usr/local \
-    -DCMAKE_USE_OPENSSL=OFF \
-    && make \
+    && ./bootstrap --prefix=/usr/local \
+    && make -DCMAKE_USE_OPENSSL=OFF \
     && make install
 
 # Install NASM
