@@ -290,6 +290,30 @@ RUN set -xe; \
     && make \
     && make install
 
+
+# Install devtoolset
+
+WORKDIR  /tmp
+
+RUN set -xe; \
+    yum install -y iso-codes # Needed for scl-utils-build
+
+RUN set -xe; \
+    curl -O http://vault.centos.org/6.5/SCL/x86_64/scl-utils/scl-utils-20120927-11.el6.centos.alt.x86_64.rpm \
+    && curl -O http://vault.centos.org/6.5/SCL/x86_64/scl-utils/scl-utils-build-20120927-11.el6.centos.alt.x86_64.rpm \
+    && curl -O http://mirror.centos.org/centos/6/extras/x86_64/Packages/centos-release-scl-rh-2-3.el6.centos.noarch.rpm \
+    && curl -O http://mirror.centos.org/centos/6/extras/x86_64/Packages/centos-release-scl-7-3.el6.centos.noarch.rpm
+
+RUN set -xe; \
+    rpm -Uvh *.rpm # Had to run this twice? Get an error first time, maybe Docker related \
+    && rm *.rpm
+
+RUN set -xe; \
+    yum install -y devtoolset-7-gcc-c++ devtoolset-7-make devtoolset-7-build
+
+RUN set -xe; \
+    scl enable devtoolset-7 bash
+
 # Install qt5 (https://wiki.qt.io/Qt_5.12_Release)
 
 ENV VERSION_QT=5.14.1
