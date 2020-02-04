@@ -369,5 +369,5 @@ RUN set -xe; \
 
 RUN cp /lib64/libuuid.so.* ${INSTALL_DIR}/lib64/
 
-RUN ls -al /usr/share/fontconfig
+RUN ls -al /opt/jeylabs
 
