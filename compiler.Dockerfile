@@ -41,7 +41,7 @@ RUN  set -xe \
     && curl -Ls  https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3.tar.gz \
     | tar xzC /tmp/cmake --strip-components=1 \
     && sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake \
-    && ./bootstrap -DCMAKE_USE_OPENSSL=OFF \
+    && ./bootstrap \
     --prefix=/usr/local \ 
     --no-system-jsoncpp \
     --no-system-librhash \
