@@ -43,11 +43,9 @@ RUN  set -xe \
     && sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake \
     && ./bootstrap \
     --prefix=/usr/local \ 
-    --system-libs \
     --no-system-jsoncpp \
     --no-system-librhash \
     --no-system-curl \
-    --no-system-openssl \
     && make \
     && make install
 
