@@ -367,17 +367,5 @@ RUN set -xe; \
 
 # Symlink All Binaries / Libaries
 
-RUN ls -al ${INSTALL_DIR} \
-    && ls -al ${INSTALL_DIR}/lib \
-    && ls -al /usr/lib \
-    && ls -al ${INSTALL_DIR}/lib64
-
-RUN ls -al ${INSTALL_DIR} \
-    && ls -al ${INSTALL_DIR}/lib \
-    && ls -al /usr/lib \
-    && ls -al ${INSTALL_DIR}/lib64
-
-RUN ls -al ${INSTALL_DIR} \
-    && ls -al ${INSTALL_DIR}/lib \
-    && ls -al /usr/lib \
-    && ls -al ${INSTALL_DIR}/lib64
+RUN ls -al /usr/lib \
+    && ls -al /usr/lib64 \
