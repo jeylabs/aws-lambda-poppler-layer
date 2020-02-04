@@ -40,7 +40,9 @@ RUN  set -xe \
     && cd /tmp/cmake \
     && curl -Ls  https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3.tar.gz \
     | tar xzC /tmp/cmake --strip-components=1 \
-    && ./bootstrap --prefix=/usr/local \
+    && ./bootstrap \ 
+    --prefix=/usr/local \
+    -DCMAKE_USE_OPENSSL=OFF \
     && make \
     && make install
 
@@ -309,6 +311,28 @@ RUN set -xe; \
     --prefix=${INSTALL_DIR} \
     --disable-static \ 
     --enable-tee \ 
+    && make \
+    && make install
+
+# Install Little CMS (https://downloads.sourceforge.net/lcms)
+
+ENV VERSION_LCMS=2-2.9
+ENV LCMS_BUILD_DIR=${BUILD_DIR}/lcms
+
+RUN set -xe; \
+    mkdir -p ${LCMS_BUILD_DIR}; \
+    curl -Ls https://downloads.sourceforge.net/lcms/lcms${VERSION_LCMS}.tar.gz \
+    | tar xzC ${LCMS_BUILD_DIR} --strip-components=1
+
+WORKDIR  ${LCMS_BUILD_DIR}/
+
+RUN set -xe; \
+    CFLAGS="" \
+    CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
+    LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
+    ./configure  \
+    --prefix=${INSTALL_DIR} \
+    --disable-static \ 
     && make \
     && make install
 
