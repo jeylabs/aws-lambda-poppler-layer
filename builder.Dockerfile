@@ -18,7 +18,10 @@ RUN set -xe; \
     ${INSTALL_DIR}/bin \
     ${INSTALL_DIR}/lib
 
-COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/ ${INSTALL_DIR}/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/etc/ ${INSTALL_DIR}/etc/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/ ${INSTALL_DIR}/bin/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/ ${INSTALL_DIR}/lib/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/ ${INSTALL_DIR}/lib/
 
 # Test file
 
