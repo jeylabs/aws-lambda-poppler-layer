@@ -38,7 +38,7 @@ RUN set -xe \
 RUN  set -xe \
     && mkdir -p /tmp/cmake \
     && cd /tmp/cmake \
-    && curl -Ls  https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.13.2.tar.gz \
+    && curl -Ls  https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3.tar.gz \
     | tar xzC /tmp/cmake --strip-components=1 \
     && ./bootstrap --prefix=/usr/local \
     && make \
