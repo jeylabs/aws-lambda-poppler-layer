@@ -23,18 +23,18 @@ COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/* ${INSTALL_DIR}/b
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/* ${INSTALL_DIR}/lib/
 COPY --from=jeylabs/poppler/compiler:latest /usr/lib64/libuuid.so.1 ${INSTALL_DIR}/lib/
 
-    ile
+# Test file
     
 RUN set -xe; \
     mkdir -p /tmp/test
 
-    /tmp/test
+WORKDIR /tmp/test
     
 RUN set -xe; \
-     -Ls https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf --output sample.pdf
+    curl -Ls https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf --output sample.pdf
     
 RUN set -xe; \
-    /bin/pdftoppm -png sample.pdf sample
+    /opt/bin/pdftoppm -png sample.pdf sample
     
 RUN set -xe; \
     test -f /tmp/test/sample-1.png
