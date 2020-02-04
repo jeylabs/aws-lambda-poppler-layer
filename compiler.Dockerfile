@@ -365,12 +365,6 @@ RUN set -xe; \
     && make \
     && make install
 
-# Symlink All Binaries / Libaries
+# Symlink Libaries
 
-RUN ls -al /usr/lib64
-
-RUN ls -al /lib64
-
-RUN cp /lib64/libuuid.so.1.3.0 ${INSTALL_DIR}/lib64/libuuid.so.1
-
-RUN ls -al ${INSTALL_DIR}/lib64
+RUN cp /lib64/libuuid.so.* ${INSTALL_DIR}/lib64/
