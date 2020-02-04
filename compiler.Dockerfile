@@ -46,6 +46,7 @@ RUN  set -xe \
     --system-libs \
     --no-system-jsoncpp \
     --no-system-librhash \
+    --no-system-curl \
     && make \
     && make install
 
