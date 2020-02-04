@@ -303,12 +303,7 @@ RUN set -xe; \
 WORKDIR  ${QT_BUILD_DIR}/
 
 RUN set -xe; \
-    export CXXFLAGS="$CXXFLAGS -std=c++11"  \
-    # && sed -i 's/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@$/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@ @CXXFLAGS@/' ./OMEdit/OMEdit/OMEditGUI/OMEdit.config.in  \
-    # && sed -i 's/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@$/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@ @CXXFLAGS@/' ./OMNotebook/OMNotebook/OMNotebookGUI/OMNotebook.config.in  \
-    # && sed -i 's/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@$/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@ @CXXFLAGS@/' ./OMShell/OMShell/OMShellGUI/OMShell.config.in  \
-    # && sed -i 's/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@$/QMAKE_CXXFLAGS = @CFLAGS@ @CPPFLAGS@ @CXXFLAGS@/' ./OMPlot/OMPlot/OMPlotGUI/OMPlotGUI.config.in  \
-    && sed -i 's/#QMAKE_CXXFLAGS   \*= -std=c++11$/QMAKE_CXXFLAGS   *= -std=c++11/' ./OMPlot/qwt/qwtbuild.pri
+    export CXXFLAGS="$CXXFLAGS -std=c++11"
 
 RUN set -xe; \
     CFLAGS="" \
