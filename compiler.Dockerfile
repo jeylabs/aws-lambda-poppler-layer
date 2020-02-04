@@ -31,7 +31,7 @@ RUN set -xe \
     && yum install -y libuuid-devel openssl-devel gcc72 gcc72-c++
 
 RUN set -xe \
-    mv /usr/lib64/libuuid.so ${INSTALL_DIR}/lib64/
+    mv /usr/lib64/libuuid.so.1.3.0 ${INSTALL_DIR}/lib64/
 
 # Install CMake
 
@@ -370,4 +370,6 @@ RUN set -xe; \
 
 # Symlink All Binaries / Libaries
 
-RUN ls -al /usr/lib64/
+RUN ls -al ${INSTALL_DIR} \
+    && ls -al ${INSTALL_DIR}/lib \
+    && ls -al ${INSTALL_DIR}/lib64
