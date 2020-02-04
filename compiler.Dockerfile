@@ -370,6 +370,8 @@ RUN set -xe; \
 
 # Symlink All Binaries / Libaries
 
+RUN ls -al ${INSTALL_DIR}/lib64/
+
 RUN mkdir -p /opt/bin
 RUN mkdir -p /opt/lib
 
