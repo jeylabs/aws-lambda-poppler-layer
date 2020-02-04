@@ -327,8 +327,12 @@ RUN set -xe; \
 WORKDIR  ${QT_BUILD_DIR}/
 
 RUN set -xe; \
+    export CXXFLAGS="$CXXFLAGS -std=gnu++11"
+
+RUN set -xe; \
     CFLAGS="" \
     QT5PREFIX=${INSTALL_DIR}/qt5 \
+    CXXFLAGS="-std=gnu++11" \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
