@@ -374,7 +374,7 @@ RUN mkdir -p /opt/bin
 RUN mkdir -p /opt/lib
 
 RUN cp ${INSTALL_DIR}/bin/* /opt/bin/
-RUN cp ${INSTALL_DIR}/lib/* /opt/lib/
-RUN cp ${INSTALL_DIR}/lib64/* /opt/lib/
+RUN cp ${INSTALL_DIR}/lib/* /opt/lib/ || true
+RUN cp ${INSTALL_DIR}/lib64/* /opt/lib/ || true
 
 RUN ls /opt/bin
