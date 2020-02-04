@@ -369,4 +369,15 @@ RUN set -xe; \
 
 RUN ls -al ${INSTALL_DIR} \
     && ls -al ${INSTALL_DIR}/lib \
+    && ls -al /usr/lib \
+    && ls -al ${INSTALL_DIR}/lib64
+
+RUN ls -al ${INSTALL_DIR} \
+    && ls -al ${INSTALL_DIR}/lib \
+    && ls -al /usr/lib \
+    && ls -al ${INSTALL_DIR}/lib64
+
+RUN ls -al ${INSTALL_DIR} \
+    && ls -al ${INSTALL_DIR}/lib \
+    && ls -al /usr/lib \
     && ls -al ${INSTALL_DIR}/lib64
