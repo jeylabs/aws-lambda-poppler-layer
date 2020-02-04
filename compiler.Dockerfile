@@ -327,9 +327,6 @@ RUN set -xe; \
 WORKDIR  ${QT_BUILD_DIR}/
 
 RUN set -xe; \
-    export CXXFLAGS="$CXXFLAGS -std=c++11"
-
-RUN set -xe; \
     CFLAGS="" \
     QT5PREFIX=${INSTALL_DIR}/qt5 \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
