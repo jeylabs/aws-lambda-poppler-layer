@@ -29,7 +29,7 @@ COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/ ${INSTALL_DIR}/
 COPY --from=jeylabs/poppler/compiler:latest /lib64/libuuid.so.* ${INSTALL_DIR}/lib/
 
 RUN set -xe; \
-    cp /tmp/share/fontconfig ${INSTALL_DIR}/share/fontconfig
+    cp -R /tmp/share/fontconfig ${INSTALL_DIR}/share/fontconfig
 
 # Test file
 
