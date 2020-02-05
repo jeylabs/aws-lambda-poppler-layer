@@ -170,7 +170,7 @@ RUN set -xe; \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
     --sysconfdir=${INSTALL_DIR}/etc \
-    --sysconfdir=${INSTALL_DIR}/var \
+    --localstatedir=${INSTALL_DIR}/var \
     --prefix=${INSTALL_DIR} \
     --disable-docs \
     --enable-libxml2 \
@@ -370,5 +370,3 @@ RUN set -xe; \
 # Symlink Libaries
 
 RUN cp /lib64/libuuid.so.* ${INSTALL_DIR}/lib64/
-
-RUN ls -al /opt
