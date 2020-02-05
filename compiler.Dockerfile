@@ -3,7 +3,7 @@ FROM amazonlinux:2018.03
 SHELL ["/bin/bash", "-c"]
 
 ENV BUILD_DIR="/tmp/build"
-ENV INSTALL_DIR="/opt/jeylabs"
+ENV INSTALL_DIR="/opt"
 
 # Lock To Proper Release
 
@@ -169,6 +169,8 @@ RUN set -xe; \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
     ./configure  \
+    --sysconfdir=${INSTALL_DIR}/etc \
+    --sysconfdir=${INSTALL_DIR}/var \
     --prefix=${INSTALL_DIR} \
     --disable-docs \
     --enable-libxml2 \

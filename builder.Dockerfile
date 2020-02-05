@@ -1,6 +1,6 @@
 FROM amazonlinux:2018.03
 
-ENV SOURCE_DIR="/opt/jeylabs"
+ENV SOURCE_DIR="/opt"
 ENV INSTALL_DIR="/opt"
 
 ENV PATH="/opt/bin:${PATH}" \
@@ -23,7 +23,7 @@ COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/etc/ ${INSTALL_DIR}/et
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/ ${INSTALL_DIR}/bin/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/ ${INSTALL_DIR}/lib/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/ ${INSTALL_DIR}/lib/
-COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/share/ ${INSTALL_DIR}/share/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/share/fontconfig ${INSTALL_DIR}/share/
 
 # Test file
 
