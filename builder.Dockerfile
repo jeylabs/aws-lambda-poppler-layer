@@ -25,7 +25,7 @@ COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/bin/ ${INSTALL_DIR}/bi
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/var/ ${INSTALL_DIR}/var/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib/ ${INSTALL_DIR}/lib/
 COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/lib64/ ${INSTALL_DIR}/lib/
-COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/share/ ${INSTALL_DIR}/share/
+COPY --from=jeylabs/poppler/compiler:latest ${SOURCE_DIR}/share/fontconfig ${INSTALL_DIR}/share/fontconfig
 
 # Test file
 
