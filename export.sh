@@ -5,7 +5,7 @@ set -u
 set -x
 
 cd /opt
-cp /runtime/* /opt/
+cp -R /runtime/* /opt/
 
 ls -la
 
