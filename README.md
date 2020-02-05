@@ -10,7 +10,7 @@ You can add this layer to any Lambda function you want – no matter what runtim
 Click on Layers and choose "Add a layer", and "Provide a layer version ARN" and enter the following ARN.
 
 ```
-arn:aws:lambda:ap-southeast-2:544607081959:layer:poppler:12
+arn:aws:lambda:ap-southeast-2:544607081959:layer:poppler:20
 ```
 
 See the table below for other supported regions.
