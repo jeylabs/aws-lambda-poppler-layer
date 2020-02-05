@@ -168,6 +168,7 @@ RUN set -xe; \
     CFLAGS="" \
     CPPFLAGS="-I${INSTALL_DIR}/include  -I/usr/include" \
     LDFLAGS="-L${INSTALL_DIR}/lib64 -L${INSTALL_DIR}/lib" \
+    FONTCONFIG_PATH=${INSTALL_DIR} \
     ./configure  \
     --sysconfdir=${INSTALL_DIR}/etc \
     --localstatedir=${INSTALL_DIR}/var \
