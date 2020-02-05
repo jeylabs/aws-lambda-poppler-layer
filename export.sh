@@ -5,7 +5,10 @@ set -u
 set -x
 
 cd /opt
+cp -R /runtime/* /opt/
 
 ls -la
 
-zip --quiet --recurse-paths /export/${ZIP_FILE_NAME}.zip . --exclude "*include*" "*share*"
+sed -i '/<!-- Font directory list -->/a <dir>/opt/share/fonts</dir>' /opt/etc/fonts/fonts.conf
+
+zip --quiet --recurse-paths /export/${ZIP_FILE_NAME}.zip .
