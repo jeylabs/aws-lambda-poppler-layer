@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# Initialization - load function handler
-cp -R /opt/share/fontconfig /usr/share/fontconfig

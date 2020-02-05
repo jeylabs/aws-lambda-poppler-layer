@@ -368,8 +368,3 @@ RUN set -xe; \
     && make \
     && make install
 
-# Symlink Libaries
-
-RUN cp /lib64/libuuid.so.* ${INSTALL_DIR}/lib64/
-
-RUN ls -al /usr/share/fonts
