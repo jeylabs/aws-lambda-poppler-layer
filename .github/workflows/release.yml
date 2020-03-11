@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: build poppler lambda layer
+        run: |
+          make distribution
+      - name: Upload poppler artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: poppler
+          path: export/poppler.zip
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: 'poppler.zip'
