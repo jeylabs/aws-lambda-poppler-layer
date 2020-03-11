@@ -1,10 +1,8 @@
 name: Release
 
-# on:
-#   release:
-#     types: [created]
-
-on: push
+on:
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -12,15 +10,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-      - name: build poppler lambda layer
+      - name: Build poppler
         run: |
           make distribution
-      - name: Upload poppler artifact
+      - name: Upload the artifacts
         uses: actions/upload-artifact@v1
         with:
           name: poppler
           path: export/poppler.zip
-      - name: Upload the artifacts
+      - name: Publish the artifacts
         uses: skx/github-action-publish-binaries@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
