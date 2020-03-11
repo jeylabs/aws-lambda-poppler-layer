@@ -4,6 +4,10 @@ name: Release
 #   release:
 #     types: [created]
 
+on:
+  push:
+    - '*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
