@@ -1,19 +1,16 @@
 ## Build Poppler for Amazon Lambda as a layer
 Poppler binaries for AWS Lambda
 
-## Install
-Download and run `make distribution`
-
 ## Getting Started
-You can add this layer to any Lambda function you want – no matter what runtime
+Download `poppler.zip` file from [releases](https://github.com/jeylabs/aws-lambda-poppler-layer/releases) and create create / update your custom layer in AWS.
 
-Click on Layers and choose "Add a layer", and "Provide a layer version ARN" and enter the following ARN.
+You can add this layer to any Lambda function you want – no matter what runtime.
 
-```
-arn:aws:lambda:ap-southeast-2:544607081959:layer:poppler:20
-```
+## Fonts
+[Stix](https://github.com/stipub/stixfonts/tree/master/OTF) fonts added as fallback fonts. you can place your custom fonts in `/tmp/fonts` directory in runtime.
 
-See the table below for other supported regions.
+## Install
+Clone this repository and run `make distribution`
 
-## See
+## See Also
 - `Node.js` environment - [aws-lambda-poppler](https://github.com/jeylabs/aws-lambda-poppler)
