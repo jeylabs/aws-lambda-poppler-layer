@@ -2,7 +2,7 @@
 Poppler binaries for AWS Lambda
 
 ## Getting Started
-Download `poppler.zip` file from [releases](https://github.com/jeylabs/aws-lambda-poppler-layer/releases) and create create / update your custom layer in AWS.
+Download `poppler.zip` file from [releases](https://github.com/jeylabs/aws-lambda-poppler-layer/releases) and create / update your custom layer in AWS.
 
 You can add this layer to any Lambda function you want – no matter what runtime.
 
