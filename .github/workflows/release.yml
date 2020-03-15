@@ -1,25 +1,24 @@
 name: Release
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@master
       - name: Build poppler
-        uses: actions/checkout@master
         run: |
           make distribution
-
       - name: Upload the artifacts
         uses: actions/upload-artifact@v1
         with:
           name: poppler
           path: export/poppler.zip
-
       - name: Publish the artifacts
         uses: skx/github-action-publish-binaries@master
         env:
