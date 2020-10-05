@@ -1,3 +1,7 @@
+# This is required for Depot-serverless
+
+When the package is built, ensure that the zip file is uploaded to `s3://aspire-operations/binaries/poppler.zip` This is required for the serverless image to build.
+
 ## Build Poppler for Amazon Lambda as a layer
 Poppler binaries for AWS Lambda 
 
