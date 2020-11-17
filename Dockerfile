@@ -176,7 +176,7 @@ RUN set -Eeuxo pipefail \
 # Pre-installed on Amazon Linux: 2.3.11
 # Required by: Fontconfig (Poppler)
 #
-ENV FREETYPE_VERSION=2.10.1
+ENV FREETYPE_VERSION=2.10.4
 ENV FREETYPE_BUILD_DIR=${BUILD_DIR}/freetype
 
 RUN set -Eeuxo pipefail \
@@ -189,6 +189,43 @@ WORKDIR ${FREETYPE_BUILD_DIR}/
 RUN set -Eeuxo pipefail \
     && sed -r "s:.*(AUX_MODULES.*valid):\1:" -i modules.cfg \
     && sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" -i include/freetype/config/ftoption.h
+
+RUN set -Eeuxo pipefail \
+    && ./configure  \
+    --prefix=${INSTALL_DIR} \
+    --with-sysroot=${INSTALL_DIR} \
+    --enable-freetype-config  \
+    --disable-static \
+    && make V=0 \
+    && make install
+
+
+# Install Harfbuzz (http://www.linuxfromscratch.org/blfs/view/svn/general/harfbuzz.html)
+#
+# Pre-installed on Amazon Linux: no
+# Recommended by: FreeType
+#
+ENV HARZBUFF_VERSION=2.7.0
+ENV HARZBUFF_BUILD_DIR=${BUILD_DIR}/harfbuzz
+
+RUN set -Eeuxo pipefail \
+    && mkdir -p ${HARZBUFF_BUILD_DIR} \
+    && curl -L https://github.com/harfbuzz/harfbuzz/archive/${HARZBUFF_VERSION}.tar.gz \
+    | tar xzC ${HARZBUFF_BUILD_DIR} --strip-components=1
+
+WORKDIR ${HARZBUFF_BUILD_DIR}/
+
+RUN set -Eeuxo pipefail \
+    && mkdir build \
+    && cd build \
+    && meson \
+    --prefix=${INSTALL_DIR} \
+    && ninja-build \
+    && ninja-build install
+
+# Now re-install FreeType
+
+WORKDIR ${FREETYPE_BUILD_DIR}/
 
 RUN set -Eeuxo pipefail \
     && ./configure  \
@@ -324,6 +361,28 @@ RUN set -Eeuxo pipefail \
     --disable-static \
     && make V=0 \
     && make install
+
+
+# Install Boost (http://www.linuxfromscratch.org/blfs/view/svn/general/boost.html)
+#
+# Pre-installed on Amazon Linux: no
+# Optional by: Poppler
+#
+ENV BOOST_VERSION=1.74.0
+ENV BOOST_BUILD_DIR=${BUILD_DIR}/boost
+
+RUN set -Eeuxo pipefail \
+    && mkdir -p ${BOOST_BUILD_DIR} \
+    && curl -L https://dl.bintray.com/boostorg/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION//./_}.tar.bz2 \
+    | tar xjC ${BOOST_BUILD_DIR} --strip-components=1
+
+WORKDIR ${BOOST_BUILD_DIR}/
+
+RUN set -Eeuxo pipefail \
+    && ./bootstrap.sh \
+    --prefix=${INSTALL_DIR} \
+    && ./b2 stage -j4 threading=multi link=shared \
+    && ./b2 install threading=multi link=shared
 
 
 # Install Poppler (http://www.linuxfromscratch.org/blfs/view/svn/general/poppler.html)
