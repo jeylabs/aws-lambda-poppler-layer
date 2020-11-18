@@ -67,7 +67,7 @@ ENV LD_LIBRARY_PATH="${INSTALL_DIR}/lib64:${INSTALL_DIR}/lib"
 
 # Build LibXML2 (https://github.com/GNOME/libxml2/releases)
 
-ENV VERSION_XML2=2.9.9
+ENV VERSION_XML2=2.9.10
 ENV XML2_BUILD_DIR=${BUILD_DIR}/xml2
 
 RUN set -xe; \
@@ -151,7 +151,7 @@ RUN set -xe; \
 
 # Install Fontconfig (https://github.com/freedesktop/fontconfig/releases)
 
-ENV VERSION_FONTCONFIG=2.13.1
+ENV VERSION_FONTCONFIG=2.13.92
 ENV FONTCONFIG_BUILD_DIR=${BUILD_DIR}/fontconfig
 
 RUN set -xe; \
@@ -180,7 +180,7 @@ RUN set -xe; \
 
 # Install Libjpeg-Turbo (https://github.com/libjpeg-turbo/libjpeg-turbo/releases)
 
-ENV VERSION_LIBJPEG=2.0.3
+ENV VERSION_LIBJPEG=2.0.6
 ENV LIBJPEG_BUILD_DIR=${BUILD_DIR}/libjpeg
 
 RUN set -xe; \
@@ -199,6 +199,7 @@ RUN set -xe; \
     -DENABLE_STATIC=FALSE \
     -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
     -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib \ 
+    -DCMAKE_PREFIX_PATH=${INSTALL_DIR} \
     && make \
     && make install
 
@@ -222,6 +223,7 @@ RUN set -xe; \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
     -DBUILD_STATIC_LIBS=OFF \ 
+    -DCMAKE_PREFIX_PATH=${INSTALL_DIR} \
     && make \
     && make install
 
@@ -271,7 +273,7 @@ RUN set -xe; \
 
 # Install Pixman (https://www.cairographics.org/releases)
 
-ENV VERSION_PIXMAN=0.38.4
+ENV VERSION_PIXMAN=0.40.0
 ENV PIXMAN_BUILD_DIR=${BUILD_DIR}/pixman
 
 RUN set -xe; \
@@ -319,7 +321,7 @@ RUN set -xe; \
 
 # Install Little CMS (https://downloads.sourceforge.net/lcms)
 
-ENV VERSION_LCMS=2-2.9
+ENV VERSION_LCMS=2-2.11
 ENV LCMS_BUILD_DIR=${BUILD_DIR}/lcms
 
 RUN set -xe; \
@@ -341,7 +343,7 @@ RUN set -xe; \
 
 # Install Poppler (https://gitlab.freedesktop.org/poppler/poppler/-/tags)
 
-ENV VERSION_POPPLER=0.85.0
+ENV VERSION_POPPLER=20.11.0
 ENV POPPLER_BUILD_DIR=${BUILD_DIR}/poppler
 ENV POPPLER_TEST_DIR=${BUILD_DIR}/poppler-test
 
@@ -365,6 +367,7 @@ RUN set -xe; \
     -DTESTDATADIR=${POPPLER_TEST_DIR} \
     -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
     -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \ 
+    -DCMAKE_PREFIX_PATH=${INSTALL_DIR} \
     && make \
     && make install
 
