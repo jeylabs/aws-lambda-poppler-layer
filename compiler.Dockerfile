@@ -298,12 +298,12 @@ RUN set -xe; \
 
 # Install Cairo (http://www.linuxfromscratch.org/blfs/view/svn/x/cairo.html)
 
-ENV VERSION_CAIRO=1.17.2
+ENV VERSION_CAIRO=1.16.0
 ENV CAIRO_BUILD_DIR=${BUILD_DIR}/cairo
 
 RUN set -xe; \
     mkdir -p ${CAIRO_BUILD_DIR}; \
-    curl -Ls https://cairographics.org/snapshots/cairo-${VERSION_CAIRO}.tar.xz \
+    curl -Ls https://ftp.osuosl.org/pub/blfs/conglomeration/cairo/cairo-${VERSION_CAIRO}.tar.xz \
     | tar xJvC ${CAIRO_BUILD_DIR} --strip-components=1
 
 WORKDIR  ${CAIRO_BUILD_DIR}/
