@@ -156,8 +156,8 @@ ENV FONTCONFIG_BUILD_DIR=${BUILD_DIR}/fontconfig
 
 RUN set -xe; \
     mkdir -p ${FONTCONFIG_BUILD_DIR}; \
-    curl -Ls https://www.freedesktop.org/software/fontconfig/release/fontconfig-${VERSION_FONTCONFIG}.tar.bz2 \
-    | tar xjC ${FONTCONFIG_BUILD_DIR} --strip-components=1
+    curl -Ls https://www.freedesktop.org/software/fontconfig/release/fontconfig-${VERSION_FONTCONFIG}.tar.gz \
+    | tar xzC ${FONTCONFIG_BUILD_DIR} --strip-components=1
 
 WORKDIR  ${FONTCONFIG_BUILD_DIR}/
 
