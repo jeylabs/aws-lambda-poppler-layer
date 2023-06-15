@@ -1,4 +1,4 @@
-FROM amazonlinux:2018.03
+FROM amazonlinux:2
 
 ENV SOURCE_DIR="/opt"
 ENV INSTALL_DIR="/opt"
